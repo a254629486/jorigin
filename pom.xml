@@ -50,6 +50,7 @@
   <build>
     <finalName>jorigin-web</finalName>
 	<plugins>
+	<!-- tomcat插件 -->
 		<plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
@@ -65,14 +66,13 @@
 	          <skip>true</skip>
 	        </configuration>
 	    </plugin>
+	    <!-- JDK编译版本 -->
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<configuration>
 				<source>1.7</source>
 				<target>1.7</target>
-
-
 			</configuration>
 		</plugin>
 	</plugins> 
