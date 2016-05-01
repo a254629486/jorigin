@@ -27,7 +27,7 @@ public class SsqDoMybatisTest {
 		//通过sqlsession 操作数据库
 		//第一个参数：映射文件中statement的id，等于=namespace+"."+statement的id
 		//第二个参数：指定和映射文件中所匹配的parameterType类型的参数
-		TotalBallPO totalBall = sqlSession.selectOne("test.selectTotalball", 1);
+		TotalBallPO totalBall = sqlSession.selectOne("test.selectTotalBall", 1);
 		
 		System.out.println(totalBall);
 		

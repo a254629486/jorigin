@@ -12,7 +12,9 @@
 <!-- 
 	通过select执行数据库查询
  -->
-	<select id="selectTotalball" parameterType="int" resultType="com.ssq.po.TotalBallPO">
+	<select id="selectTotalBall" parameterType="int" resultType="com.ssq.po.TotalBallPO">
 		select * from totalball where id = #{id}
 	</select>
+	
+	<insert id="insertTotalBall"></insert>
 </mapper>
