@@ -15,6 +15,17 @@
 	<select id="selectTotalBall" parameterType="int" resultType="com.ssq.po.TotalBallPO">
 		select * from totalball where id = #{id}
 	</select>
-	
-	<insert id="insertTotalBall"></insert>
+
+	<insert id="insertTotalBall" parameterType="com.ssq.po.TotalBallPO">
+		INSERT INTO totalball
+		(opendate,red1,red2,red3,red4,red5,red6,blue)
+		values
+		(#{opendate,jdbcType=DATE}, #{red1,jdbcType=INTEGER},
+		#{red2,jdbcType=INTEGER},
+		#{red3,jdbcType=INTEGER},
+		#{red4,jdbcType=INTEGER},
+		#{red5,jdbcType=INTEGER},
+		#{red6,jdbcType=INTEGER},
+		#{blue,jdbcType=INTEGER})
+	</insert>
 </mapper>
