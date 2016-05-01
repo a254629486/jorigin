@@ -38,6 +38,65 @@
 		<artifactId>spring-web</artifactId>
 		<version>4.1.7.RELEASE</version>
 	</dependency>
+	<!-- 	mybatis  -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.2.8</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+<!-- 	mybatis 依赖包 -->
+<dependency> 
+    <groupId>ognl</groupId>
+    <artifactId>ognl</artifactId>
+    <version>2.6.9</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.5</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>1.7.5</version>
+</dependency>
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+<dependency>
+    <groupId>commons-logging</groupId>
+    <artifactId>commons-logging</artifactId>
+    <version>1.1.1</version>
+</dependency>
+<dependency>
+    <groupId>org.javassist</groupId>
+    <artifactId>javassist</artifactId>
+    <version>3.17.1-GA</version>
+</dependency>
+<dependency>
+    <groupId>cglib</groupId>
+    <artifactId>cglib</artifactId>
+    <version>2.2.2</version>
+</dependency>
+	<!-- 	dbcp -->
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>1.4</version>
+	</dependency>
+	<!-- MYSQL -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.8</version>
+	</dependency>
     <!-- servlet -->
 	<dependency>
 	  <groupId>javax.servlet</groupId>
@@ -55,6 +114,15 @@
   <build>
     <finalName>jorigin-web</finalName>
 	<plugins>
+		<plugin>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<version>1.3.2</version>
+			<configuration>
+				<verbose>true</verbose>
+				<overwrite>true</overwrite>
+			</configuration>
+		</plugin>
 	<!-- tomcat插件 -->
 		<plugin>
           <groupId>org.apache.tomcat.maven</groupId>
@@ -80,6 +148,6 @@
 				<target>1.7</target>
 			</configuration>
 		</plugin>
-	</plugins> 
+	</plugins>
   </build>
 </project>
