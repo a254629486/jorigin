@@ -16,7 +16,8 @@
 			</dataSource>
 		</environment>
 	</environments>
+	<!-- 加载映射文件 -->
 	<mappers>
-		<mapper resource="org/mybatis/example/BlogMapper.xml" />
+		<mapper resource="com/ssq/dao/TotalBallMapper.xml" />
 	</mappers>
 </configuration>
