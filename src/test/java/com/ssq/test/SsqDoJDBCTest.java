@@ -17,23 +17,23 @@ public class SsqDoJDBCTest {
 		ResultSet resultSet = null;
 		
 		try {
-			//¼ÓÔØÇı¶¯³ÌĞò
+			//åŠ è½½é©±åŠ¨ç¨‹åº
 			Class.forName("com.mysql.jdbc.Driver");
-			//Í¨¹ıÇı¶¯¹ÜÀíÀà»ñÈ¡Êı¾İ¿âÁ¬½Ó
+			//é€šè¿‡é©±åŠ¨ç®¡ç†ç±»è·å–æ•°æ®åº“è¿æ¥
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ssq?characterEncoding=utf-8","root","root");
 			
 			String sql = "select * from totalball where id = ?";
 			
-			//»ñÈ¡Ô¤´¦ÀíµÄstatement
+			//è·å–é¢„å¤„ç†çš„statement
 			preparedStatement = connection.prepareStatement(sql);
 			
-			// ÉèÖÃ²ÎÊı
+			// è®¾ç½®å‚æ•°
 			preparedStatement.setString(1, "1");
 			
-			//ÏòÊı¾İ¿â·¢³ösqlÖ´ĞĞ²éÑ¯£¬²éÑ¯½á¹û¼¯
+			//å‘æ•°æ®åº“å‘å‡ºsqlæ‰§è¡ŒæŸ¥è¯¢ï¼ŒæŸ¥è¯¢ç»“æœé›†
 			resultSet = preparedStatement.executeQuery();
 			
-			//±éÀú²éÑ¯½á¹û¼¯
+			//éå†æŸ¥è¯¢ç»“æœé›†
 			while(resultSet.next()){
 				System.out.println(resultSet.getString("id") + " " + resultSet.getString("opendate"));
 			}
@@ -42,7 +42,7 @@ public class SsqDoJDBCTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			//ÊÍ·Å×ÊÔ´
+			//é‡Šæ”¾èµ„æº
 			if(resultSet!=null){
 				try {
 					resultSet.close();

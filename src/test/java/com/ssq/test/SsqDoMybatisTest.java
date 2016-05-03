@@ -17,31 +17,32 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.ssq.dao.TotalBallDao;
 import com.ssq.po.TotalBallPO;
 
 public class SsqDoMybatisTest {
 
 	public static ArrayList<TotalBallPO> tblist = new ArrayList<TotalBallPO>();
 	
-//	@Test
+	@Test
 	public void findTotalBallTest() throws IOException{
 		
-		//mybatis ÅäÖÃÎÄ¼ş
+		//mybatis é…ç½®æ–‡ä»¶
 		InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-		//´´½¨»á»°¹¤³§
+		//åˆ›å»ºä¼šè¯å·¥å‚
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
-		//Í¨¹ı¹¤³§µÃµ½sqlsession
+		//é€šè¿‡å·¥å‚å¾—åˆ°sqlsession
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		//Í¨¹ısqlsession ²Ù×÷Êı¾İ¿â
-		//µÚÒ»¸ö²ÎÊı£ºÓ³ÉäÎÄ¼şÖĞstatementµÄid£¬µÈÓÚ=namespace+"."+statementµÄid
-		//µÚ¶ş¸ö²ÎÊı£ºÖ¸¶¨ºÍÓ³ÉäÎÄ¼şÖĞËùÆ¥ÅäµÄparameterTypeÀàĞÍµÄ²ÎÊı
-		TotalBallPO totalBall = sqlSession.selectOne("test.selectTotalBall", 1);
+		//é€šè¿‡sqlsession æ“ä½œæ•°æ®åº“
+		//ç¬¬ä¸€ä¸ªå‚æ•°ï¼šæ˜ å°„æ–‡ä»¶ä¸­statementçš„idï¼Œç­‰äº=namespace+"."+statementçš„id
+		//ç¬¬äºŒä¸ªå‚æ•°ï¼šæŒ‡å®šå’Œæ˜ å°„æ–‡ä»¶ä¸­æ‰€åŒ¹é…çš„parameterTypeç±»å‹çš„å‚æ•°  selectOne("test.selectTotalBall", 1)
+		TotalBallDao totalBallDao = sqlSession.getMapper(TotalBallDao.class);
+		TotalBallPO tbpo =  totalBallDao.selectTotalBall(4019);
+		System.out.println(tbpo.getOpendate());
 		
-		System.out.println(totalBall);
-		
-		//ÊÍ·Å×ÊÔ´
+		//é‡Šæ”¾èµ„æº
 		sqlSession.close();
 		
 	}
@@ -58,7 +59,7 @@ public class SsqDoMybatisTest {
 	}
 
 	/**
-	 * ¶ÁĞĞ×ª¶ÔÏó
+	 * è¯»è¡Œè½¬å¯¹è±¡
 	 * @param lineTxt
 	 * @return
 	 */
@@ -78,16 +79,16 @@ public class SsqDoMybatisTest {
 	  return tb;
   }
   /**
-   * ½âÎöTXT
+   * è§£æTXT
    * @param filePath
    */
   public static void readTxtFile(String filePath){
         try {
                 String encoding="UTF-8";
                 File file=new File(filePath);
-                if(file.isFile() && file.exists()){ //ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ
+                if(file.isFile() && file.exists()){ //åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å­˜åœ¨
                     InputStreamReader read = new InputStreamReader(
-                    new FileInputStream(file),encoding);//¿¼ÂÇµ½±àÂë¸ñÊ½
+                    new FileInputStream(file),encoding);//è€ƒè™‘åˆ°ç¼–ç æ ¼å¼
                     BufferedReader bufferedReader = new BufferedReader(read);
                     String lineTxt = null;
                     while((lineTxt = bufferedReader.readLine()) != null){
@@ -96,15 +97,15 @@ public class SsqDoMybatisTest {
                     }
                     read.close();
         }else{
-            System.out.println("ÕÒ²»µ½Ö¸¶¨µÄÎÄ¼ş");
+            System.out.println("æ‰¾ä¸åˆ°æŒ‡å®šçš„æ–‡ä»¶");
         }
         } catch (Exception e) {
-            System.out.println("¶ÁÈ¡ÎÄ¼şÄÚÈİ³ö´í");
+            System.out.println("è¯»å–æ–‡ä»¶å†…å®¹å‡ºé”™");
             e.printStackTrace();
         }
      
     }
-	@Test
+//	@Test
 	public void insertTotalBallTest() throws IOException{
 		
 		
@@ -115,26 +116,27 @@ public class SsqDoMybatisTest {
 			System.out.println(tb.toString());
 		}*/
 		
-		//mybatis ÅäÖÃÎÄ¼ş
+		//mybatis é…ç½®æ–‡ä»¶
 		InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-		//´´½¨»á»°¹¤³§
+		//åˆ›å»ºä¼šè¯å·¥å‚
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
-		//Í¨¹ı¹¤³§µÃµ½sqlsession
+		//é€šè¿‡å·¥å‚å¾—åˆ°sqlsession
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		//Í¨¹ısqlsession ²Ù×÷Êı¾İ¿â
-		//µÚÒ»¸ö²ÎÊı£ºÓ³ÉäÎÄ¼şÖĞstatementµÄid£¬µÈÓÚ=namespace+"."+statementµÄid
-		//µÚ¶ş¸ö²ÎÊı£ºÖ¸¶¨ºÍÓ³ÉäÎÄ¼şÖĞËùÆ¥ÅäµÄparameterTypeÀàĞÍµÄ²ÎÊı
+		//é€šè¿‡sqlsession æ“ä½œæ•°æ®åº“
+		//ç¬¬ä¸€ä¸ªå‚æ•°ï¼šæ˜ å°„æ–‡ä»¶ä¸­statementçš„idï¼Œç­‰äº=namespace+"."+statementçš„id
+		//ç¬¬äºŒä¸ªå‚æ•°ï¼šæŒ‡å®šå’Œæ˜ å°„æ–‡ä»¶ä¸­æ‰€åŒ¹é…çš„parameterTypeç±»å‹çš„å‚æ•°
 		
-		System.out.println("ÌõÊı£º"+tblist.size());
+		System.out.println("æ¡æ•°ï¼š"+tblist.size());
 		
 		for (TotalBallPO totalBallPO : tblist) {
 			sqlSession.insert("test.insertTotalBall", totalBallPO);
+			System.out.println("id>>>>>"+totalBallPO.getId());
 		}
 		sqlSession.commit();
 		
-		//ÊÍ·Å×ÊÔ´
+		//é‡Šæ”¾èµ„æº
 		sqlSession.close();
 		
 	}

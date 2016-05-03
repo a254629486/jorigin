@@ -3,6 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!-- 加载属性文件 -->
+<properties resource="db.properties"></properties>
 	<environments default="development">
 		<environment id="development">
 <!-- 		使用jdbc事务 -->
