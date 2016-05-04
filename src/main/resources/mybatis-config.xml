@@ -5,6 +5,23 @@
 <configuration>
 <!-- 加载属性文件 -->
 <properties resource="db.properties"></properties>
+<settings>
+<!-- 	打开延迟加载开关 -->
+	<setting name="LazyLoadingEnabled" value="true"/>
+<!-- 将积极加载改成消极加载 -->
+	<setting name="aggresssiveLazyLoading" value="false"/>
+<!-- 	开启二级缓存 -->
+	<setting name="cacheEnabled" value="true"/>
+</settings>
+<!-- 自定义别名 -->
+<typeAliases>
+<!-- 	单个定义 
+	<typeAlias type="com.ssq.po.TotalBallPO" alias="totalBall"/>
+-->
+<!-- 	批量定义 ,类名即为变量别名
+	<package name="com.ssq.po"/>
+-->
+</typeAliases>
 	<environments default="development">
 		<environment id="development">
 <!-- 		使用jdbc事务 -->
@@ -20,6 +37,10 @@
 	</environments>
 	<!-- 加载映射文件 -->
 	<mappers>
-		<mapper resource="com/ssq/dao/TotalBallMapper.xml" />
+<!-- 		<mapper resource="com/ssq/dao/TotalBallMapper.xml" /> -->
+<!-- 		单个加载 -->
+<!-- 		<mapper class="com.ssq.dao.TotalBallDao"/> -->
+<!-- 		批量加载 -->
+		<package name="com.ssq.dao"/>
 	</mappers>
 </configuration>

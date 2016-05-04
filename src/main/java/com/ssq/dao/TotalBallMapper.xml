@@ -6,7 +6,15 @@
   注意：使用mapper代理方法开发，namespace有特殊重要的作用
    -->
 <mapper namespace="com.ssq.dao.TotalBallDao">
-
+	<!-- 开启缓存 -->
+	<cache/>
+ 	<!-- 一对一 -->
+ 	<!-- 一对多 
+ <resultMap type="" id="">
+ 	<association property=""></association>
+ 	<collection property="" ofType="集合属性中pojo的类型"></collection>
+ </resultMap>
+ 	-->
 <!-- 在映射文件中配置很多sql语句 -->
 <!-- 需求：通过id查询用户表的记录 -->
 <!-- 
