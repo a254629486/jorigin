@@ -38,6 +38,18 @@
 		<artifactId>spring-web</artifactId>
 		<version>4.1.7.RELEASE</version>
 	</dependency>
+<!-- 	没有这个包SqlSessionDaoSupport 不能引用 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>4.1.7.RELEASE</version>
+	</dependency>
+<!-- 	没有这个包创建sqlSessionFactory 会报错-->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>4.1.7.RELEASE</version>
+	</dependency>
 	<!-- 	mybatis  -->
 	<dependency>
 		<groupId>org.mybatis</groupId>

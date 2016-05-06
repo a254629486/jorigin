@@ -1,7 +1,5 @@
 package com.ssq.test;
 
-import static org.junit.Assert.*;
-
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
