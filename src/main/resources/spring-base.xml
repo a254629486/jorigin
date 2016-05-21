@@ -57,8 +57,27 @@
 		<property name="basePackage" value="com.ssq.dao"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
+    <!-- spring 对 mybatis 的事务管理器 使用 jdbc的事务控制类 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+    </bean>
     
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="insert*" propagation="REQUIRED"/>
+    		<tx:method name="update*" propagation="REQUIRED"/>
+    		<tx:method name="delete*" propagation="REQUIRED"/>
+    		<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+    		<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+    		<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+    	</tx:attributes>
+    </tx:advice>
     
+    <!-- aop -->
+    <aop:config>
+    	<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.*.service.*.*(..))"/>
+    </aop:config>
     
     
 </beans>

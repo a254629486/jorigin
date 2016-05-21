@@ -44,5 +44,18 @@ public class SsqDoMybatisDeleteTest {
 		sqlSession.close();
 
 	}
+	
+	  //随机生成5个1至100之间的整数。显示这5个数的和以及平均值，然后从大到小显示。
+    public static void main(String[] args) {
+        int[] arr = new int[1000];
+        int pingjun = 0;
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = new java.util.Random().nextInt(9)+1;
+            pingjun += arr[i];
+        }
+//        java.util.Arrays.sort(arr);
+        System.out.println("这五个数是：" + java.util.Arrays.toString(arr));
+        System.out.println("平均的值是：" + (pingjun / 5));
+    }
 
 }

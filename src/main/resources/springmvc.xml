@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd" >
+		
+<!-- 	处理适配器，所有的处理适配器都实现了 HandlerAdapter接口-->
+<!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" /> -->
+<!-- 注解适配器 -->
+<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
+
+<!-- 配置handler -->
+<!-- <bean id="ssq" name="/ssq.action" class="com.ssq.controller.SsqController" /> -->
+
+<!-- 处理映射器
+	将bean的name作为url进行查找，需要在配置Handler时指定beanname（就是url）
+ -->
+<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/> -->
+<!-- 注解映射器 -->
+<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+<!-- 简单url映射 -->
+<!-- <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"> -->
+<!-- 	<property name="mappings"> -->
+		<!-- 对bean id 为 ssq 的controller 进行url 映射 -->
+<!-- 		<props > -->
+<!-- 			<prop key="/ssq1.action">ssq</prop> -->
+<!-- 		</props> -->
+<!-- 	</property> -->
+<!-- </bean> -->
+
+
+<!-- 使用 mvc:annotation-driven代替注解映射器和注解适配器 
+	mvc:annotation-driven 默认加载很多参数绑定方法，比如json转换解析器。
+	如果使用mvc:annotation-driven，不用配置其他适配器
+-->
+<mvc:annotation-driven conversion-service="conversionService">
+</mvc:annotation-driven>
+
+<!-- 组件扫描 -->
+<context:component-scan base-package="com.ssq.controller"></context:component-scan>
+
+<!-- 视图解析器 -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+	<property name="prefix" value="/WEB-INF/jsp/" />
+	<property name="suffix" value=".jsp" />
+</bean>
+<!-- 自定义参数绑定 -->
+<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+<!-- 	转换器 -->
+	<property name="converters" >
+		<list>
+			<bean class="com.ssq.converter.DateConverter"/>
+		</list>
+	</property>
+</bean>
+
+</beans>
