@@ -44,8 +44,19 @@
 	mvc:annotation-driven 默认加载很多参数绑定方法，比如json转换解析器。
 	如果使用mvc:annotation-driven，不用配置其他适配器
 -->
-<mvc:annotation-driven conversion-service="conversionService">
+<mvc:annotation-driven conversion-service="conversionService" validator="validator">
 </mvc:annotation-driven>
+
+
+<!--拦截器 -->
+<mvc:interceptors>
+	<!--多个拦截器,顺序执行 -->
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean class="com.ssq.interceptor.HandlerInterceptor1"></bean>
+	</mvc:interceptor>
+</mvc:interceptors>
+
 
 <!-- 组件扫描 -->
 <context:component-scan base-package="com.ssq.controller"></context:component-scan>
@@ -64,5 +75,38 @@
 		</list>
 	</property>
 </bean>
+
+<!-- 校验器 -->
+<bean id="validator"
+	class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+	<!-- 校验器-->
+	<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+	<!-- 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties -->
+	<property name="validationMessageSource" ref="messageSource" />
+</bean>
+<!-- 校验错误信息配置文件 -->
+<bean id="messageSource"
+	class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<!-- 资源文件名-->
+	<property name="basenames">
+      	 <list>
+           <value>classpath:ValidationMessages</value>
+      	 </list>
+   	</property>
+	<!-- 资源文件编码格式 -->
+	<property name="fileEncodings" value="utf-8" />
+	<!-- 对资源文件内容缓存时间，单位秒 -->
+	<property name="cacheSeconds" value="120" />
+</bean>
+<!-- 文件上传 ,页面form需要添加 enctype="multipart/form-data"-->
+<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!-- 设置上传文件的最大尺寸为5MB -->
+	<property name="maxUploadSize">
+		<value>5242880</value>
+	</property>
+</bean>
+
+
 
 </beans>
