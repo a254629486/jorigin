@@ -129,6 +129,11 @@
 		<artifactId>jackson-databind</artifactId>
 		<version>2.4.1</version>
 	</dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.1.41</version>
+	</dependency>
 	<!-- 	dbcp -->
 	<dependency>
 		<groupId>commons-dbcp</groupId>
@@ -166,9 +171,15 @@
 		</exclusions>
 	</dependency>
   </dependencies>
+  
+	<properties>
+		<dao.target.dir>src/main/java</dao.target.dir>
+	</properties>
+	
   <build>
     <finalName>jorigin-web</finalName>
 	<plugins>
+<!-- 	mvn mybatis-generator:generate -->
 		<plugin>
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>mybatis-generator-maven-plugin</artifactId>
