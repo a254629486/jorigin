@@ -17,6 +17,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.ssq.dao.TotalBallDao;
 import com.ssq.po.TotalBallPO;
 
 public class SsqDoMybatisTest {
@@ -36,6 +37,10 @@ public class SsqDoMybatisTest {
 		
 		//通过sqlsession 操作数据库
 		//第一个参数：映射文件中statement的id，等于=namespace+"."+statement的id
+		//第二个参数：指定和映射文件中所匹配的parameterType类型的参数  selectOne("test.selectTotalBall", 1)
+		TotalBallDao totalBallDao = sqlSession.getMapper(TotalBallDao.class);
+		TotalBallPO tbpo =  totalBallDao.selectTotalBall(4019);
+		System.out.println(tbpo.getOpendate());
 		//第二个参数：指定和映射文件中所匹配的parameterType类型的参数
 		TotalBallPO totalBall = sqlSession.selectOne("test.selectTotalBall", 1);
 		
@@ -132,6 +137,7 @@ public class SsqDoMybatisTest {
 		
 		for (TotalBallPO totalBallPO : tblist) {
 			sqlSession.insert("test.insertTotalBall", totalBallPO);
+			System.out.println("id>>>>>"+totalBallPO.getId());
 		}
 		sqlSession.commit();
 		

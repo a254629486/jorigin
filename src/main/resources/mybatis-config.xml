@@ -19,5 +19,7 @@
 	<!-- 加载映射文件 -->
 	<mappers>
 		<mapper resource="com/ssq/dao/TotalBallMapper.xml" />
+<!-- 		<mapper class="com.ssq.dao.TotalBallMapper"/> -->
+<!-- 		<package name="com.ssq.dao"/> -->
 	</mappers>
 </configuration>

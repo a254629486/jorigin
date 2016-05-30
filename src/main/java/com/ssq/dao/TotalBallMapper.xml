@@ -1,22 +1,158 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <!-- namespace 命名空间，作用就是对sql进行分类管理，理解sql隔离
-  注意：使用mapper代理方法开发，namespace有特殊重要的作用
-   -->
-<mapper namespace="test">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssq.dao.TotalBallMapper">
+  <resultMap id="BaseResultMap" type="com.ssq.po.TotalBall">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="opendate" jdbcType="DATE" property="opendate" />
+    <result column="red1" jdbcType="INTEGER" property="red1" />
+    <result column="red2" jdbcType="INTEGER" property="red2" />
+    <result column="red3" jdbcType="INTEGER" property="red3" />
+    <result column="red4" jdbcType="INTEGER" property="red4" />
+    <result column="red5" jdbcType="INTEGER" property="red5" />
+    <result column="red6" jdbcType="INTEGER" property="red6" />
+    <result column="blue" jdbcType="INTEGER" property="blue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, opendate, red1, red2, red3, red4, red5, red6, blue
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from totalball
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from totalball
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssq.po.TotalBall">
+    insert into totalball (id, opendate, red1, 
+      red2, red3, red4, red5, 
+      red6, blue)
+    values (#{id,jdbcType=INTEGER}, #{opendate,jdbcType=DATE}, #{red1,jdbcType=INTEGER}, 
+      #{red2,jdbcType=INTEGER}, #{red3,jdbcType=INTEGER}, #{red4,jdbcType=INTEGER}, #{red5,jdbcType=INTEGER}, 
+      #{red6,jdbcType=INTEGER}, #{blue,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssq.po.TotalBall">
+    insert into totalball
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="opendate != null">
+        opendate,
+      </if>
+      <if test="red1 != null">
+        red1,
+      </if>
+      <if test="red2 != null">
+        red2,
+      </if>
+      <if test="red3 != null">
+        red3,
+      </if>
+      <if test="red4 != null">
+        red4,
+      </if>
+      <if test="red5 != null">
+        red5,
+      </if>
+      <if test="red6 != null">
+        red6,
+      </if>
+      <if test="blue != null">
+        blue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="opendate != null">
+        #{opendate,jdbcType=DATE},
+      </if>
+      <if test="red1 != null">
+        #{red1,jdbcType=INTEGER},
+      </if>
+      <if test="red2 != null">
+        #{red2,jdbcType=INTEGER},
+      </if>
+      <if test="red3 != null">
+        #{red3,jdbcType=INTEGER},
+      </if>
+      <if test="red4 != null">
+        #{red4,jdbcType=INTEGER},
+      </if>
+      <if test="red5 != null">
+        #{red5,jdbcType=INTEGER},
+      </if>
+      <if test="red6 != null">
+        #{red6,jdbcType=INTEGER},
+      </if>
+      <if test="blue != null">
+        #{blue,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssq.po.TotalBall">
+    update totalball
+    <set>
+      <if test="opendate != null">
+        opendate = #{opendate,jdbcType=DATE},
+      </if>
+      <if test="red1 != null">
+        red1 = #{red1,jdbcType=INTEGER},
+      </if>
+      <if test="red2 != null">
+        red2 = #{red2,jdbcType=INTEGER},
+      </if>
+      <if test="red3 != null">
+        red3 = #{red3,jdbcType=INTEGER},
+      </if>
+      <if test="red4 != null">
+        red4 = #{red4,jdbcType=INTEGER},
+      </if>
+      <if test="red5 != null">
+        red5 = #{red5,jdbcType=INTEGER},
+      </if>
+      <if test="red6 != null">
+        red6 = #{red6,jdbcType=INTEGER},
+      </if>
+      <if test="blue != null">
+        blue = #{blue,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssq.po.TotalBall">
+    update totalball
+    set opendate = #{opendate,jdbcType=DATE},
+      red1 = #{red1,jdbcType=INTEGER},
+      red2 = #{red2,jdbcType=INTEGER},
+      red3 = #{red3,jdbcType=INTEGER},
+      red4 = #{red4,jdbcType=INTEGER},
+      red5 = #{red5,jdbcType=INTEGER},
+      red6 = #{red6,jdbcType=INTEGER},
+      blue = #{blue,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
 <!-- 在映射文件中配置很多sql语句 -->
 <!-- 需求：通过id查询用户表的记录 -->
 <!-- 
 	通过select执行数据库查询
+	
+	参数 #{} 接收pojo对象值，通过OGNL读取对象中的属性，通过属性.属性.……获取对象值
  -->
 	<select id="selectTotalBall" parameterType="int" resultType="com.ssq.po.TotalBallPO">
 		select * from totalball where id = #{id}
 	</select>
 
 	<insert id="insertTotalBall" parameterType="com.ssq.po.TotalBallPO">
+	<!-- 将主键返回 ,只适用于自增主键-->
+	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
 		INSERT INTO totalball
 		(opendate,red1,red2,red3,red4,red5,red6,blue)
 		values
@@ -28,4 +164,8 @@
 		#{red6,jdbcType=INTEGER},
 		#{blue,jdbcType=INTEGER})
 	</insert>
+	<!-- 	清空 -->
+	<delete id="deleteTotalBall">
+		delete from totalball
+	</delete>
 </mapper>

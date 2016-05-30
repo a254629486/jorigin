@@ -11,15 +11,17 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd"
-	default-lazy-init="true">
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd" >
 
 	<description>Spring公共配置 </description>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	
+	<!-- 加载属性配置文件 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.user}" />
+		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<!-- 数据库连接池配置 -->
 		<property name="initialSize" value="${jdbc.initialPoolSize}" />
@@ -31,5 +33,51 @@
 		<property name="minIdle" value="${jdbc.mixIdlePollSize}" />
 		<!-- 最小空闲连接数量 -->
 	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="mybatis-config.xml"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+<!--     <bean id="totalBallDaoImpl" class="com.ssq.dao.TotalBallDaoImpl"> -->
+<!--     	<property name="sqlSessionFactory" ref="sqlSessionFactory" /> -->
+<!--     </bean> -->
+<!--     单个加载mapper 
+    <bean id="totalBallDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    	<property name="mapperInterface" value="com.ssq.dao.TotalBallDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+-->
+<!--     批量扫描mapper 
+	从mapper包中扫描mapper接口，自动创建代理对象并且在spring容中注册
+	遵循规范：将mapper.java和mapper.xml映射文件名称保持一致，且在一个目录中
+	自动扫描出来的mapper的bean的id为mapper类名（首字母小写）
+-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ssq.dao"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+    <!-- spring 对 mybatis 的事务管理器 使用 jdbc的事务控制类 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+    		<tx:method name="insert*" propagation="REQUIRED"/>
+    		<tx:method name="update*" propagation="REQUIRED"/>
+    		<tx:method name="delete*" propagation="REQUIRED"/>
+    		<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+    		<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+    		<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+    	</tx:attributes>
+    </tx:advice>
+    
+    <!-- aop -->
+    <aop:config>
+    	<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.*.service.*.*(..))"/>
+    </aop:config>
+    
     
 </beans>
