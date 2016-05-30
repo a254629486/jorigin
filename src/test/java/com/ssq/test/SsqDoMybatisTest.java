@@ -23,7 +23,7 @@ public class SsqDoMybatisTest {
 
 	public static ArrayList<TotalBallPO> tblist = new ArrayList<TotalBallPO>();
 	
-//	@Test
+	@Test
 	public void findTotalBallTest() throws IOException{
 		
 		//mybatis 配置文件
@@ -104,12 +104,13 @@ public class SsqDoMybatisTest {
         }
      
     }
-	@Test
+//	@Test
 	public void insertTotalBallTest() throws IOException{
 		
-		
-		String filePath = "D:\\2015-2008.txt";
-		
+		//window
+		//String filePath = "D:\\2015-2008.txt";
+		//ios
+		String filePath = "/Users/lig/javaworks/jorigin/src/main/env/2015-2008.txt";
         readTxtFile(filePath);
        /* for (TotalBallPO tb : tblist) {
 			System.out.println(tb.toString());
